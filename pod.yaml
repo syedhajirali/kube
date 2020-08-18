@@ -1,16 +1,19 @@
 apiVersion: v1
-kind: Pod
+kind: Service
 metadata:
-  name: jboss-pod
+  name: jbossservice1
   labels:
     app: app
 spec:
-  containers:
-    - name: jboss
-      ports:
-        - name: http
-          containerPort: 8080
-        - name: mgmt
-          containerPort: 9990
-      image: jboss/wildfly
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort:
+    - name: mgmt
+      port: 9990
+      targetPort: 9990
+  selector:
+      app: app
       
